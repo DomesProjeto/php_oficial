@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove as margens padrão */
+    box-sizing: border-box; /* Mantém o modelo de caixa padrão */
+    font-family: 'Inter', sans-serif; /* Define a fonte padrão para todo o documento */
+}
+
+body {
+    width: 100%; /* Define a largura total do corpo */
+    height: 100vh; /* Define a altura total do corpo para ocupar a tela inteira */
+    display: flex; /* Usa display flex para alinhar os itens centralmente */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    background: #c8c5bd; /* Define a cor de fundo do corpo */
+}
+
+.container {
+    width: 95%; /* Define a largura da container */
+    height: 95vh; /* Define a altura da container */
+    display: flex; /* Usa display flex para o layout da container */
+    box-shadow: 0.313em 0.313em 0.625em rgba(0, 0, 0, 0.212); /* Adiciona sombra à container */
+}
+
+.form-image {
+    width: 50%; /* Define a largura da seção de imagem do formulário */
+    display: flex; /* Usa display flex para alinhar os itens centralmente */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    background-color: #d8d5d0d7; /* Define a cor de fundo da seção de imagem do formulário */
+    padding: 1rem; /* Adiciona preenchimento interno */
+}
+
+.form-image img {
+    width: 31rem; /* Define a largura da imagem dentro da seção de imagem */
+}
+
+.form {
+    width: 50%; /* Define a largura da seção de formulário */
+    display: flex; /* Usa display flex para o layout da seção de formulário */
+    flex-direction: column; /* Define a direção dos itens como coluna */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    background-color: #fff; /* Define a cor de fundo da seção de formulário */
+    padding: 3rem; /* Adiciona preenchimento interno */
+}
+
+.form-header {
+    margin-bottom: 3rem; /* Adiciona margem abaixo do cabeçalho do formulário */
+    display: flex; /* Usa display flex para o layout do cabeçalho */
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+    align-items: center; /* Centraliza os itens verticalmente */
+}
+
+.form-header h1::after {
+    content: ''; /* Adiciona conteúdo antes do cabeçalho */
+    display: block; /* Exibe como bloco */
+    width: 5rem; /* Define a largura */
+    height: 0.3rem; /* Define a altura */
+    background-color: #0c5f0c; /* Define a cor de fundo */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    position: absolute; /* Posição absoluta */
+    border-radius: 0.625em; /* Define bordas arredondadas */
+}
+
+.input-group {
+    display: flex; /* Usa display flex para o layout do grupo de entrada */
+    flex-wrap: wrap; /* Permite que os itens quebrem linha */
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+    padding: 1rem 0; /* Adiciona preenchimento interno */
+}
+
+.input-box {
+    display: flex; /* Usa display flex para o layout da caixa de entrada */
+    flex-direction: column; /* Define a direção dos itens como coluna */
+    margin-bottom: 1.1rem; /* Adiciona margem abaixo */
+}
+
+.input-box input {
+    margin: 0.6rem 0; /* Adiciona margem */
+    padding: 0.8rem 1.2rem; /* Adiciona preenchimento interno */
+    border: none; /* Remove a borda */
+    border-radius: 0.625em; /* Define bordas arredondadas */
+    box-shadow: 0.063em 0.063em 0.375em #0000001c; /* Adiciona sombra */
+    font-size: 0.8rem; /* Define o tamanho da fonte */
+}
+
+.input-box input {
+    background-color: #D8D4C3; /* Define a cor de fundo da entrada */
+}
+
+.input-box input {
+    outline: 0.063em solid #0c5f0c; /* Define o contorno ao focar */
+}
+
+.input-box label,
+.gender-title h6 {
+    font-size: 0.75rem; /* Define o tamanho da fonte */
+    font-weight: 600; /* Define o peso da fonte */
+    color: #000000c0; /* Define a cor do texto */
+}
+
+.input-box input::placeholder {
+    color: #000000be; /* Define a cor do placeholder */
+}
+
+.gender-group {
+    display: flex; /* Usa display flex para o layout do grupo de gênero */
+    justify-content: space-between; /* Distribui o espaço entre os itens */
+    margin-top: 0.62rem; /* Adiciona margem acima */
+    padding: 0 .5rem; /* Adiciona preenchimento interno */
+}
+
+.gender-input {
+    display: flex; /* Usa display flex para o layout da entrada de gênero */
+    align-items: center; /* Centraliza os itens verticalmente */
+}
+
+.gender-input input {
+    margin-right: 0.35rem; /* Adiciona margem à direita */
+}
+
+.gender-input label {
+    font-size: 0.81rem; /* Define o tamanho da fonte */
+    font-weight: 600; /* Define o peso da fonte */
+    color: #000000c0; /* Define a cor do texto */
+}
+
+.continue-button {
+    display: flex; /* Usa display flex para o layout do botão de continuação */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    width: 100%; /* Define a largura total */
+}
+
+.continue-button button {
+    width: 48%; /* Define a largura do botão */
+    margin-top: 2.5rem; /* Adiciona margem acima do botão */
+    border: none; /* Remove a borda */
+    background-color: #0c5f0c; /* Define a cor de fundo do botão */
+    padding: 0.62rem; /* Adiciona preenchimento interno */
+    border-radius: 0.313em; /* Define bordas arredondadas */
+    cursor: pointer; /* Define o cursor como ponteiro */
+}
+
+.continue-button button {
+    background-color: #185c3ff1; /* Define a cor de fundo do botão ao passar o mouse */
+}
+
+.continue-button button a {
+    text-decoration: none; /* Remove a decoração de texto do link */
+    font-size: 0.93rem; /* Define o tamanho da fonte */
+    font-weight: 500; /* Define o peso da fonte */
+    color: #fff; /* Define a cor do texto */
+}
+
+.continue-button span {
+    color:#fff; /* Define a cor do texto */
+}
+
+@media screen and (max-width: 66.5em) {
+    .container {
+        width: 90%; /* Define a largura da container em telas menores */
+        height: auto; /* Define a altura automática */
+    }
+}
