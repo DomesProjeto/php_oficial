@@ -8,17 +8,15 @@ include 'php/db_connection.php';
 
 // Verificar se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificar se o campo 'email' e 'password' existem
     if (isset($_POST['email']) && isset($_POST['password'])) {
         // Sanitizar e validar o e-mail
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // Sanitiza o e-mail
-        $email = filter_var($email, FILTER_VALIDATE_EMAIL); // Valida o e-mail
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-        // Sanitizar e validar a senha
-        $password = htmlspecialchars($_POST['password']); // Sanitiza a senha para evitar XSS
-        $password = trim($password); // Remove espaços em branco no início e no final
+        // Sanitizar a senha
+        $password = htmlspecialchars($_POST['password']);
+        $password = trim($password);
 
-        // Verificar se o e-mail e a senha são válidos
         $errors = [];
         if (!$email) {
             $errors[] = "O e-mail fornecido é inválido.";
@@ -27,21 +25,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors[] = "A senha não pode estar vazia.";
         }
 
-        // Se não houver erros, verificar no banco de dados
         if (empty($errors)) {
-            // Preparar a consulta para buscar o e-mail no banco de dados
-            $stmt = $conn->prepare("SELECT id, email, senha FROM usuarios WHERE email = :email");
+            $stmt = $conn->prepare("SELECT id, primeiro_nome, email, senha FROM usuarios WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
-            // Verificar se o e-mail existe no banco de dados
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
             if ($user) {
-                // Verificar se a senha está correta
                 if ($password == $user['senha']) {
-                    // Se as credenciais estiverem corretas, redirecionar para a página index.php
-                    header('Location: ./menu.php'); // Redireciona para a página principal
+                    // Salvar o ID e o nome do usuário na sessão
+                    session_start();
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_name'] = $user['primeiro_nome'];
+                    header('Location: ./menu.php');
                     exit;
                 } else {
                     $errors[] = "E-mail ou senha incorretos.";
@@ -59,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/login.css">
@@ -67,13 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="shortcut icon" href="img/menu/logo.png" type="image/x-icon">
 </head>
 <body>
-    
     <main id="login-container">
-        <form id="login_form" method="POST"> <!-- Formulário de login -->
+        <form id="login_form" method="POST">
             <div id="form_header">
                 <h1>Faça o seu Login</h1>
             </div>
-
             <div id="inputs">
                 <div class="input-box">
                     <label for="email">
@@ -93,16 +87,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </label>
                     <div id="forgot-password">
-                        <a href="#">
-                            <h3>Esqueci minha Senha</h3>
-                        </a>
+                        <a href="#"><h3>Esqueci minha Senha</h3></a>
                     </div>
                 </div>
             </div>
-
-            <button type="submit" id="login-button">Entrar</button> <!-- Botão de login -->
-            
-            <!-- Exibir erros de validação -->
+            <button type="submit" id="login-button">Entrar</button>
             <?php if (!empty($errors)): ?>
                 <div class="errors">
                     <ul>
@@ -114,6 +103,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
         </form>
     </main>
-
 </body>
 </html>

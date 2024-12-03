@@ -10,7 +10,6 @@ global $conn;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_SESSION['email'];
 
-
         $cep = $_POST['cep']; 
 
         $estado = $_POST['state']; 
