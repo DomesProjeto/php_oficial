@@ -49,7 +49,7 @@
             </div>
         </section>
 
-        <!-- FAQ -->
+        <!--  -->
         <section class="faq">
             <h2>Perguntas Frequentes</h2>
             <div class="faq-item">
