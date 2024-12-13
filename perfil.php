@@ -168,6 +168,7 @@ if (isset($_POST['alterar_senha'])) {
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="atualizar_perfil">Salvar mudanças</button>
                             </form>
+                            <a href="menu.php" class="btn btn-secondary mt-3">Voltar para o Menu</a>
                         </div>
 
                         <div class="tab-pane fade" id="account-alterar-senha">
@@ -188,6 +189,7 @@ if (isset($_POST['alterar_senha'])) {
                                     </div>
                                     <button type="submit" class="btn btn-primary" name="alterar_senha">Alterar Senha</button>
                                 </form>
+                                <a href="menu.php" class="btn btn-secondary mt-3">Voltar para o Menu</a>
                             </div>
                         </div>
 
@@ -204,6 +206,7 @@ if (isset($_POST['alterar_senha'])) {
                                     </div>
                                     <button type="submit" class="btn btn-primary">Salvar mudanças</button>
                                 </form>
+                                <a href="menu.php" class="btn btn-secondary mt-3">Voltar para o Menu</a>
                             </div>
                         </div>
                     </div>
