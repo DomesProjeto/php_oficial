@@ -1,22 +1,23 @@
 <?php
-include_once('php/db_connection.php');
+require_once 'php/db_connection.php'; // Arquivo com a conexão ao banco de dados
+session_start();
 
-global $conn;
-
-try {
-    // Recuperando as avaliações do banco de dados
-    $sql = "SELECT * FROM avaliacoes WHERE trabalhador_id = :trabalhador_id";
-    $stmt = $conn->prepare($sql);
-    
-    // Defina o ID do trabalhador (aqui está configurado como um exemplo)
-    $trabalhador_id = 1; // Substitua pelo ID do trabalhador desejado
-    $stmt->bindParam(':trabalhador_id', $trabalhador_id);
-    
-    $stmt->execute();
-    $avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Erro ao recuperar as avaliações: " . $e->getMessage();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
 }
+
+$trabalhador_id = $_SESSION['user_id'];
+
+$sql = "SELECT a.*, u.primeiro_nome AS nome_avaliador 
+        FROM avaliacoes a
+        JOIN usuarios u ON a.avaliador_id = u.id
+        WHERE a.trabalhador_id = :trabalhador_id";
+
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':trabalhador_id', $trabalhador_id, PDO::PARAM_INT);
+$stmt->execute();
+$avaliacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +40,7 @@ try {
             <?php
             if (!empty($avaliacoes)) {
                 foreach ($avaliacoes as $avaliacao) {
-                    // Recuperando o nome do avaliador (pode precisar de consulta na tabela `usuarios` para buscar o nome real)
+                    // Recuperando o nome do avaliador 
                     $avaliador_id = $avaliacao['avaliador_id'];
 
                     // Consultando o nome do avaliador
@@ -59,7 +60,6 @@ try {
                             <span class='customer-name'>$nome_avaliador</span>
                             <span class='date'>$data_formatada</span>
                             <div class='stars' data-rating='" . $avaliacao['nota'] . "'>
-                                <!-- As estrelas podem ser geradas aqui se necessário -->
                             </div>
                             <p class='comment'>" . htmlspecialchars($avaliacao['comentario']) . "</p>
                           </li>";
