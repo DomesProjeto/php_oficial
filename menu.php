@@ -65,7 +65,9 @@ try {
     <title>Dashboard - Trabalhador</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon"> <!-- Ícone da página -->
-
+    <script src="js/main.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -128,20 +130,11 @@ try {
                 </li>
 
                 <li>
-                    <a href="configuracoes.php">
-                        <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
-                        </span>
-                        <span class="title">Configurações</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="ajuda.php">
+                    <a href="perfil.php">
                         <span class="icon">
                             <ion-icon name="help-outline"></ion-icon>
                         </span>
-                        <span class="title">Ajuda</span>
+                        <span class="title">Perfil</span>
                     </a>
                 </li>
                 <li>
@@ -242,10 +235,5 @@ try {
             </div>
         </div>
     </div>
-
-    <!-- =========== Scripts ========= -->
-    <script src="js/main.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
