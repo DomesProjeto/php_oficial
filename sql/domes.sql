@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 05-Dez-2024 às 19:34
+-- Tempo de geração: 13-Dez-2024 às 20:10
 -- Versão do servidor: 8.0.36
 -- versão do PHP: 8.1.3
 
@@ -34,7 +34,7 @@ CREATE TABLE `avaliacoes` (
   `nota` int NOT NULL,
   `comentario` text,
   `data_avaliacao` datetime DEFAULT CURRENT_TIMESTAMP
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `avaliacoes`
@@ -254,26 +254,26 @@ CREATE TABLE `usuarios` (
   `bairro` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `numero` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `complemento` varchar(100) DEFAULT NULL,
-  `foto_perfil` longblob
+  `foto_perfil` longblob,
+  `biografia` text,
+  `aniversario` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `primeiro_nome`, `sobrenome`, `email`, `celular`, `senha`, `genero`, `cep`, `estado`, `municipio`, `bairro`, `numero`, `complemento`, `foto_perfil`) VALUES
-(1, 'Marta', 'Mendes', 'martamendes@gmail.com', '123456789', '$2y$10$32q8FcqTF5kuOOK0D7PrgOCBDPftXD7btE0HT0IwTlUImjyjTX3Z6', 'Feminino', '29300000', 'Espírito Santo', 'Cariacica', 'Bela Aurora', '400', NULL, NULL),
-(2, 'Carlos', 'Almeida', 'carlos.almeida@example.com', '4444444444', '$2y$10$U6ShijzM.wGETELpz4zl2upTdh.Dp6sny7vVuLizLKg/BtCWnugYi', 'Masculino', '29400000', 'Espírito Santo', 'Guarapari', 'Ipiranga', '500', 'Bloco B', NULL),
-(3, 'Paula', 'Santos', 'paula.santos@example.com', '5555555555', '$2y$10$jd711p2qUDacMszopDnQbOCvSxpjTNS5Lt3YWPAhbvE2sI3.JwByu', 'Feminino', '29500000', 'Espírito Santo', 'Anchieta', 'Centro', '600', 'Apto 203', NULL),
-(4, 'Marcos', 'Silva', 'marcos.silva@example.com', '6666666666', '$2y$10$MYKkDuVufY1nt0AIi5btV.ijtlODDpb1h1gIl2i5FbMd/FiW9Dhi.', 'Masculino', '29600000', 'Espírito Santo', 'Linhares', 'Três Barras', '700', NULL, NULL),
-(5, 'Juliana', 'Costa', 'juliana.costa@example.com', '7777777777', '$2y$10$fbARgY3reNY62J7m30jKN.eMCZnCiFQ8c1rcV3K80nGJqJXkVL0q6', 'Feminino', '29700000', 'Espírito Santo', 'Colatina', 'Maria das Graças', '800', 'Casa 2', NULL),
-(6, 'Eduardo', 'Martins', 'eduardo.martins@example.com', '8888888888', '$2y$10$gH6jbVsiCoiRNi8d09o62ekd7Zn0/E15qMeOD0LLslmxbAtomqqSy', 'Masculino', '29800000', 'Espírito Santo', 'Nova Venécia', 'Centro', '900', NULL, NULL),
-(7, 'Fernanda', 'Rodrigues', 'fernanda.rodrigues@example.com', '9999999999', '$2y$10$M6W1CPfuuCghb8p1vgT/eeRxYRg/CwYaI8q87Qqt0QURfnySxB0XK', 'Feminino', '29900000', 'Espírito Santo', 'São Mateus', 'Guriri', '1000', 'Apto 405', NULL),
-(8, 'Lucas', 'Oliveira', 'lucas.oliveira@example.com', '1010101010', '$2y$10$6GeHMY1JpK80OI4UYoSXoOh9kMopTCaIS.y2ZoJCYJ1G.PQrMB0ia', 'Masculino', '30000000', 'Espírito Santo', 'Viana', 'Marcílio de Noronha', '1100', NULL, NULL),
-(9, 'Raquel', 'Moreira', 'raquel.moreira@example.com', '1111111111', '$2y$10$QDvsqhcucM1oDhaUL1ohqOFKSuZ8nDGHkB.OoD2PzQID9MO0eEw42', 'Feminino', '30100000', 'Espírito Santo', 'Afonso Cláudio', 'Centro', '1200', 'Casa', NULL),
-(10, 'Pedro', 'Gomes', 'pedro.gomes@example.com', '1212121212', '$2y$10$qc7bkpfJCEJw20FktC8QNuX1qRe5V5AxJt.31Y2FdNwAbGFiXzEaO', 'Masculino', '30200000', 'Espírito Santo', 'Santa Teresa', 'Centro', '1300', 'Apto 305', NULL),
-(30, 'Deide', 'Costa', 'Kleber@gmail.com', '27999999999', '$2y$10$f9Ipss0RudWwT8KpAwOTp.sIIDOsObnhcBwAmBPHGKj7JGabxYpSC', 'Outros', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, 'Deide', 'Costa', 'liiir@gmail.com', '27999999999', '$2y$10$v419VULJT9bUCqKwE//7Nelo8o/ELEF4W0/VuS8yu72ksJGuDBkFy', 'Masculino', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `primeiro_nome`, `sobrenome`, `email`, `celular`, `senha`, `genero`, `cep`, `estado`, `municipio`, `bairro`, `numero`, `complemento`, `foto_perfil`, `biografia`, `aniversario`) VALUES
+(1, 'Marta', 'Mendes', 'martamendes@gmail.com', '12345678', '$2y$10$r8QKKdcbny3Zv3LnPZoahuvdXpVbovuoGJNdaFu1YVHulQfvd2BIm', 'Feminino', '29300000', 'Espírito Santo', 'Cariacica', 'Bela Aurora', '400', '4', NULL, 'Olá, mundo!', NULL),
+(2, 'Carlos', 'Almeida', 'carlos.almeida@example.com', '4444444444', '$2y$10$U6ShijzM.wGETELpz4zl2upTdh.Dp6sny7vVuLizLKg/BtCWnugYi', 'Masculino', '29400000', 'Espírito Santo', 'Guarapari', 'Ipiranga', '500', 'Bloco B', NULL, NULL, NULL),
+(3, 'Paula', 'Santos', 'paula.santos@example.com', '5555555555', '$2y$10$jd711p2qUDacMszopDnQbOCvSxpjTNS5Lt3YWPAhbvE2sI3.JwByu', 'Feminino', '29500000', 'Espírito Santo', 'Anchieta', 'Centro', '600', 'Apto 203', NULL, NULL, NULL),
+(4, 'Marcos', 'Silva', 'marcos.silva@example.com', '6666666666', '$2y$10$MYKkDuVufY1nt0AIi5btV.ijtlODDpb1h1gIl2i5FbMd/FiW9Dhi.', 'Masculino', '29600000', 'Espírito Santo', 'Linhares', 'Três Barras', '700', NULL, NULL, NULL, NULL),
+(5, 'Juliana', 'Costa', 'juliana.costa@example.com', '7777777777', '$2y$10$fbARgY3reNY62J7m30jKN.eMCZnCiFQ8c1rcV3K80nGJqJXkVL0q6', 'Feminino', '29700000', 'Espírito Santo', 'Colatina', 'Maria das Graças', '800', 'Casa 2', NULL, NULL, NULL),
+(6, 'Eduardo', 'Martins', 'eduardo.martins@example.com', '8888888888', '$2y$10$gH6jbVsiCoiRNi8d09o62ekd7Zn0/E15qMeOD0LLslmxbAtomqqSy', 'Masculino', '29800000', 'Espírito Santo', 'Nova Venécia', 'Centro', '900', NULL, NULL, NULL, NULL),
+(7, 'Fernanda', 'Rodrigues', 'fernanda.rodrigues@example.com', '9999999999', '$2y$10$M6W1CPfuuCghb8p1vgT/eeRxYRg/CwYaI8q87Qqt0QURfnySxB0XK', 'Feminino', '29900000', 'Espírito Santo', 'São Mateus', 'Guriri', '1000', 'Apto 405', NULL, NULL, NULL),
+(8, 'Lucas', 'Oliveira', 'lucas.oliveira@example.com', '1010101010', '$2y$10$6GeHMY1JpK80OI4UYoSXoOh9kMopTCaIS.y2ZoJCYJ1G.PQrMB0ia', 'Masculino', '30000000', 'Espírito Santo', 'Viana', 'Marcílio de Noronha', '1100', NULL, NULL, NULL, NULL),
+(9, 'Raquel', 'Moreira', 'raquel.moreira@example.com', '1111111111', '$2y$10$QDvsqhcucM1oDhaUL1ohqOFKSuZ8nDGHkB.OoD2PzQID9MO0eEw42', 'Feminino', '30100000', 'Espírito Santo', 'Afonso Cláudio', 'Centro', '1200', 'Casa', NULL, NULL, NULL),
+(10, 'Pedro', 'Gomes', 'pedro.gomes@example.com', '1212121212', '$2y$10$qc7bkpfJCEJw20FktC8QNuX1qRe5V5AxJt.31Y2FdNwAbGFiXzEaO', 'Masculino', '30200000', 'Espírito Santo', 'Santa Teresa', 'Centro', '1300', 'Apto 305', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -372,7 +372,7 @@ ALTER TABLE `visitacoes`
 -- AUTO_INCREMENT de tabela `avaliacoes`
 --
 ALTER TABLE `avaliacoes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
@@ -402,7 +402,7 @@ ALTER TABLE `trabalhos`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `visitacoes`
