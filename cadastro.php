@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Habilitar exibição de erros
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -7,6 +7,13 @@ error_reporting(E_ALL);
 include 'php/db_connection.php';
 
 global $conn;
+
+// Antes de começar a registrar, verificar e destruir qualquer sessão anterior
+session_start();
+if (isset($_SESSION['email'])) {
+    session_unset();  // Limpa todas as variáveis de sessão
+    session_destroy(); // Destrói a sessão
+}
 
 // Verificar se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,14 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar se o valor do gênero é válido
         if ($genero !== 'Feminino' && $genero !== 'Masculino' && $genero !== 'Outros') {
             // Se o valor de gênero não for válido, atribui um valor padrão ou gera um erro
-            $genero = 'Outros'; // ou você pode definir como 'Masculino' ou 'Feminino' como padrão
+            $genero = 'Outros'; 
         }
 
-        // Criptografar a senha antes de armazená-la no banco de dados
+        // Criptografar a senha antes de armazenar no banco de dados
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        // A inserção na tabela agora deve incluir todos os campos obrigatórios
-        try{
+        try {
             // Preparar a consulta para inserir os dados no banco de dados
             $stmt = "INSERT INTO usuarios (primeiro_nome, sobrenome, email, celular, senha, genero) 
                      VALUES (:primeiro_nome, :sobrenome, :email, :celular, :senha, :genero)";
@@ -46,12 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(":genero", $genero); // Bind do gênero
             $stmt->execute();
 
-            // Iniciar a sessão e redirecionar
+            // Iniciar a nova sessão para garantir que estamos usando os dados corretos
             session_start();
             $_SESSION['email'] = $email;
+
+            // Redirecionar para a página de "trabalhador.php"
             header('Location: trabalhador.php');
-        }
-        catch(PDOException $e){
+            exit(); // Para garantir que o script não continue executando após o redirecionamento
+        } catch (PDOException $e) {
             echo 'Erro: ' . $e->getMessage();
         }
     }
@@ -65,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de cadastro</title>
     <link rel="stylesheet" href="css/cadastro.css">
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon"> <!-- Ícone da página -->
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon"> 
 </head>
 
 <body>
@@ -114,21 +122,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="gender-group">
                 <div class="gender-input">
-                    <input type="radio" id="female" name="gender" value="Feminino"> <!-- Atributo value adicionado -->
+                    <input type="radio" id="female" name="gender" value="Feminino"> 
                     <label for="female">Feminino</label>
                 </div>
 
                 <div class="gender-input">
-                    <input type="radio" id="male" name="gender" value="Masculino"> <!-- Atributo value adicionado -->
+                    <input type="radio" id="male" name="gender" value="Masculino"> 
                     <label for="male">Masculino</label>
                 </div>
 
                 <div class="gender-input">
-                    <input type="radio" id="others" name="gender" value="Outros"> <!-- Atributo value adicionado -->
+                    <input type="radio" id="others" name="gender" value="Outros"> 
                     <label for="others">Outros</label>
                 </div>
             </div>
-
 
                 <div class="continue-button">
                     <button type="submit">Continuar</button>
