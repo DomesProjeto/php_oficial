@@ -51,6 +51,30 @@ try {
     $stmt->execute(['user_id' => $user_id]);
     $history = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Implementar a lógica de pesquisa para nome e especialidades
+    if (isset($_GET['search'])) {
+        $search_term = "%" . $_GET['search'] . "%"; // Termo de pesquisa com wildcards
+
+        // Consultar trabalhadores e suas especialidades com base no nome ou especialidade
+        $query_search = " 
+        SELECT u.id, u.primeiro_nome, u.sobrenome, e.nome 
+        FROM domes.usuarios u
+        LEFT JOIN domes.usuario_especialidades ue ON u.id = ue.usuario_id
+        LEFT JOIN domes.especialidades e ON ue.especialidade_id = e.id
+        WHERE u.primeiro_nome LIKE :search_term OR e.nome LIKE :search_term
+    ";
+    
+    
+    
+       
+
+        $stmt = $conn->prepare($query_search);
+        $stmt->execute(['search_term' => $search_term]);
+        $search_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $search_results = [];
+    }
+
 } catch (Exception $e) {
     die("Erro: " . $e->getMessage());
 }
@@ -148,30 +172,47 @@ try {
             </ul>
         </div>
 
-        <!-- ========================= Main ==================== -->
-        <div class="main">
+                <!-- ========================= Main ==================== -->
+                <div class="main">
             <div class="topbar">
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
                 <div class="search">
-                    <label>
-                        <input type="text" placeholder="Buscar na Domes">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
-
-                <div class="user">
-                    <img src="img/customer01.jpg" alt="Usuário">
+                    <form method="GET" action="menu.php">
+                        <label>
+                            <input type="text" name="search" placeholder="Buscar por nome ou especialidade">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </label>
+                    </form>
                 </div>
             </div>
 
-            <!-- Saudação com o nome do usuário -->
-            <div class="user-greeting">
+            <!-- ======================= Pesquisa de Trabalhadores ================== -->
+            <div class="searchResults">
+                <h2>Resultados da Pesquisa</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Especialidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($search_results as $result): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($result['primeiro_nome'] . ' ' . $result['sobrenome']); ?></td>
+                                <td><?php echo htmlspecialchars($result['nome']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+                    <!-- Saudação com o nome do usuário -->
+                    <div class="user-greeting">
                 <h2><?php echo $greeting . ", " . htmlspecialchars($_SESSION['user_name']) . "!"; ?></h2>
             </div>
-
             <!-- ======================= Cards ================== -->
             <div class="cardBox">
                 <!-- Card de Visitações -->
