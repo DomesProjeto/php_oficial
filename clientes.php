@@ -32,8 +32,7 @@ if (!isset($_SESSION['user_id'])) {
                 <li><a href="avaliacoes.php"><span class="icon"><ion-icon name="star-outline"></ion-icon></span><span class="title">Avaliações</span></a></li>
                 <li><a href="trabalho.php"><span class="icon"><ion-icon name="briefcase-outline"></ion-icon></span><span class="title">Seus Trabalhos</span></a></li>
                 <li><a href="agenda.php"><span class="icon"><ion-icon name="calendar-outline"></ion-icon></span><span class="title">Sua Agenda</span></a></li>
-                <li><a href="configuracoes.php"><span class="icon"><ion-icon name="settings-outline"></ion-icon></span><span class="title">Configurações</span></a></li>
-                <li><a href="ajuda.php"><span class="icon"><ion-icon name="help-outline"></ion-icon></span><span class="title">Ajuda</span></a></li>
+                <li><a href="perfil.php"><span class="icon"><ion-icon name="settings-outline"></ion-icon></span><span class="title">Perfil</span></a></li>
             </ul>
         </div>
     </div>
