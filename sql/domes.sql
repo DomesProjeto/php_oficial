@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 13-Dez-2024 às 20:10
+-- Tempo de geração: 10-Jan-2025 às 14:18
 -- Versão do servidor: 8.0.36
 -- versão do PHP: 8.1.3
 
@@ -63,6 +63,36 @@ INSERT INTO `avaliacoes` (`id`, `trabalhador_id`, `avaliador_id`, `nota`, `comen
 (20, 8, 7, 4, 'Satisfeito, mas poderia ser mais rápido.', '2024-12-05 17:00:00'),
 (21, 9, 10, 5, 'Excelente qualidade no serviço, recomendo muito.', '2024-12-05 17:00:00'),
 (22, 10, 9, 3, 'O trabalho não ficou como eu esperava, mas ainda sim ok.', '2024-12-05 17:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `id` int NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
+  `endereco` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nome`, `email`, `telefone`, `endereco`) VALUES
+(1, 'Carlos Silva', 'carlos@exemplo.com', '(27) 99999-0000', 'Rua A, nº 10, Itaguaçu, ES'),
+(2, 'Maria Souza', 'maria@exemplo.com', '(27) 98888-0000', 'Rua B, nº 20, Itaguaçu, ES'),
+(3, 'João Pereira', 'joao@exemplo.com', '(27) 97777-0000', 'Rua C, nº 30, Itaguaçu, ES'),
+(4, 'Ana Costa', 'ana@exemplo.com', '(27) 96666-0000', 'Rua D, nº 40, Itaguaçu, ES'),
+(5, 'Lucas Almeida', 'lucas@exemplo.com', '(27) 95555-0000', 'Rua E, nº 50, Itaguaçu, ES'),
+(6, 'Cliente 6', 'cliente6@example.com', '944444444', NULL),
+(7, 'Cliente 7', 'cliente7@example.com', '933333333', NULL),
+(8, 'Cliente 8', 'cliente8@example.com', '922222222', NULL),
+(9, 'Cliente 9', 'cliente9@example.com', '911111111', NULL),
+(10, 'Cliente 10', 'cliente10@example.com', '900000000', NULL);
 
 -- --------------------------------------------------------
 
@@ -202,37 +232,39 @@ CREATE TABLE `trabalhos` (
   `usuario_id` int NOT NULL,
   `descricao` text,
   `data_trabalho` datetime DEFAULT CURRENT_TIMESTAMP,
-  `valor` decimal(10,2) DEFAULT NULL
+  `valor` decimal(10,2) DEFAULT NULL,
+  `id_cliente` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `trabalhos`
 --
 
-INSERT INTO `trabalhos` (`id`, `usuario_id`, `descricao`, `data_trabalho`, `valor`) VALUES
-(1, 1, 'Reforma da cozinha', '2024-12-04 17:03:30', '500.00'),
-(2, 2, 'Pintura da sala', '2024-12-04 17:03:30', '200.00'),
-(3, 3, 'Troca de telhado', '2024-12-04 17:03:30', '1000.00'),
-(4, 1, 'Reforma de escritório', '2024-12-05 17:00:00', '800.00'),
-(5, 2, 'Instalação de ar-condicionado', '2024-12-05 17:00:00', '1200.00'),
-(6, 3, 'Montagem de móveis', '2024-12-05 17:00:00', '300.00'),
-(7, 4, 'Troca de piso', '2024-12-05 17:00:00', '1000.00'),
-(8, 5, 'Instalação elétrica', '2024-12-05 17:00:00', '1500.00'),
-(9, 6, 'Pintura de garagem', '2024-12-05 17:00:00', '500.00'),
-(10, 7, 'Reforma de banheiro', '2024-12-05 17:00:00', '600.00'),
-(11, 8, 'Reforma de cozinha', '2024-12-05 17:00:00', '1100.00'),
-(12, 9, 'Troca de telhado', '2024-12-05 17:00:00', '2000.00'),
-(13, 10, 'Reforma de jardim', '2024-12-05 17:00:00', '700.00'),
-(14, 1, 'Reforma de escritório', '2024-12-05 17:00:00', '800.00'),
-(15, 2, 'Instalação de ar-condicionado', '2024-12-05 17:00:00', '1200.00'),
-(16, 3, 'Montagem de móveis', '2024-12-05 17:00:00', '300.00'),
-(17, 4, 'Troca de piso', '2024-12-05 17:00:00', '1000.00'),
-(18, 5, 'Instalação elétrica', '2024-12-05 17:00:00', '1500.00'),
-(19, 6, 'Pintura de garagem', '2024-12-05 17:00:00', '500.00'),
-(20, 7, 'Reforma de banheiro', '2024-12-05 17:00:00', '600.00'),
-(21, 8, 'Reforma de cozinha', '2024-12-05 17:00:00', '1100.00'),
-(22, 9, 'Troca de telhado', '2024-12-05 17:00:00', '2000.00'),
-(23, 10, 'Reforma de jardim', '2024-12-05 17:00:00', '700.00');
+INSERT INTO `trabalhos` (`id`, `usuario_id`, `descricao`, `data_trabalho`, `valor`, `id_cliente`) VALUES
+(1, 1, 'Reforma da cozinha', '2024-12-04 17:03:30', '500.00', 1),
+(2, 2, 'Pintura da sala', '2024-12-04 17:03:30', '200.00', 2),
+(3, 3, 'Troca de telhado', '2024-12-04 17:03:30', '1000.00', 3),
+(4, 1, 'Reforma de escritório', '2024-12-05 17:00:00', '800.00', 1),
+(5, 2, 'Instalação de ar-condicionado', '2024-12-05 17:00:00', '1200.00', 2),
+(6, 3, 'Montagem de móveis', '2024-12-05 17:00:00', '300.00', 3),
+(7, 4, 'Troca de piso', '2024-12-05 17:00:00', '1000.00', 4),
+(8, 5, 'Instalação elétrica', '2024-12-05 17:00:00', '1500.00', 5),
+(9, 6, 'Pintura de garagem', '2024-12-05 17:00:00', '500.00', 6),
+(10, 7, 'Reforma de banheiro', '2024-12-05 17:00:00', '600.00', 7),
+(11, 8, 'Reforma de cozinha', '2024-12-05 17:00:00', '1100.00', 8),
+(12, 9, 'Troca de telhado', '2024-12-05 17:00:00', '2000.00', 9),
+(13, 10, 'Reforma de jardim', '2024-12-05 17:00:00', '700.00', 10),
+(14, 1, 'Reforma de escritório', '2024-12-05 17:00:00', '800.00', 1),
+(15, 2, 'Instalação de ar-condicionado', '2024-12-05 17:00:00', '1200.00', 2),
+(16, 3, 'Montagem de móveis', '2024-12-05 17:00:00', '300.00', 3),
+(17, 4, 'Troca de piso', '2024-12-05 17:00:00', '1000.00', 4),
+(18, 5, 'Instalação elétrica', '2024-12-05 17:00:00', '1500.00', 5),
+(19, 6, 'Pintura de garagem', '2024-12-05 17:00:00', '500.00', 6),
+(20, 7, 'Reforma de banheiro', '2024-12-05 17:00:00', '600.00', 7),
+(21, 8, 'Reforma de cozinha', '2024-12-05 17:00:00', '1100.00', 8),
+(22, 9, 'Troca de telhado', '2024-12-05 17:00:00', '2000.00', 9),
+(23, 10, 'Reforma de jardim', '2024-12-05 17:00:00', '700.00', 10),
+(24, 1, 'Reforma de escritório', '2024-12-05 17:00:00', '800.00', 1);
 
 -- --------------------------------------------------------
 
@@ -323,6 +355,12 @@ ALTER TABLE `avaliacoes`
   ADD KEY `avaliador_id` (`avaliador_id`);
 
 --
+-- Índices para tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `comentarios`
 --
 ALTER TABLE `comentarios`
@@ -375,6 +413,12 @@ ALTER TABLE `avaliacoes`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
@@ -396,7 +440,7 @@ ALTER TABLE `pagamentos`
 -- AUTO_INCREMENT de tabela `trabalhos`
 --
 ALTER TABLE `trabalhos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
