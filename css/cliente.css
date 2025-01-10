@@ -14,16 +14,46 @@ body {
     display: flex; /* Define um layout flexível */
 }
 
+/* Centralizar container2 na tela */
 .container2 {
-    position: relative; /* Permite o uso de margin */
-    width: 80%; /* Ajuste conforme necessário */
-    max-width: 1200px; /* Define um limite de largura */
-    margin: 0 auto; /* Centraliza horizontalmente */
-    border: 1px solid #ccc; /* Mantém a borda */
-    padding: 20px; /* Espaçamento interno */
-    background-color: #fff; /* Garante o fundo branco */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Estética opcional */
+    display: flex; /* Habilita o Flexbox */
+    flex-direction: column; /* Garante que os itens sejam alinhados verticalmente */
+    justify-content: center; /* Alinha os itens verticalmente */
+    align-items: center; /* Alinha os itens horizontalmente */
+    position: absolute; /* Permite ajustar o posicionamento */
+    top: 35%; /* Move para o centro vertical */
+    left: 55%; /* Move para o centro horizontal */
+    transform: translate(-50%, -50%); /* Centraliza de fato o elemento */
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Adiciona bordas arredondadas */
 }
+
+/* Ajustes nos títulos e botões */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.back-button {
+    margin-bottom: 20px;
+}
+
+/* Ajustar ícones no menu */
+.navigation ul li a .icon {
+    display: flex; /* Habilita o Flexbox para alinhar ícones */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    font-size: 1.5rem; /* Ajusta o tamanho do ícone */
+    color: var(--white);
+}
+
 
 /* Navegação lateral */
 .navigation {
@@ -87,16 +117,6 @@ body {
     white-space: nowrap;
 }
 
-/* Container interno estilizado */
-.container2 {
-    max-width: 75em;
-    margin: 1.25em auto;
-    padding: 1.25em;
-    background-color: #ffffff;
-    border-radius: 0.625em;
-    box-shadow: 0 0.25em 0.375em rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
 
 h1 {
     text-align: center;
