@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         try {
-            // Preparar a consulta para inserir os dados no banco de dados
+            // Preparar a consulta para inserir os dados do usuário
             $stmt = "INSERT INTO usuarios (primeiro_nome, sobrenome, email, celular, senha, genero) 
                      VALUES (:primeiro_nome, :sobrenome, :email, :celular, :senha, :genero)";
             $stmt = $conn->prepare($stmt);
@@ -51,6 +51,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(":senha", $password_hash); // Bind da senha criptografada
             $stmt->bindParam(":genero", $genero); // Bind do gênero
             $stmt->execute();
+
+            // Recuperar o ID do usuário recém-inserido
+            $user_id = $conn->lastInsertId();
+
+            // Verificar se especialidades foram selecionadas
+            if (isset($_POST['especialidades'])) {
+                $especialidades = $_POST['especialidades']; // Recebe as especialidades selecionadas
+
+                // Inserir as especialidades na tabela de relação
+                foreach ($especialidades as $especialidade_id) {
+                    $stmt = $conn->prepare("INSERT INTO usuario_especialidades (usuario_id, especialidade_id) 
+                                           VALUES (:usuario_id, :especialidade_id)");
+                    $stmt->bindParam(":usuario_id", $user_id);
+                    $stmt->bindParam(":especialidade_id", $especialidade_id);
+                    $stmt->execute();
+                }
+            }
 
             // Iniciar a nova sessão para garantir que estamos usando os dados corretos
             session_start();
@@ -65,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html> 
 <html lang="pt-br"> 
@@ -115,28 +133,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
 
+             <!-- ESPECIALIDADES -->
+                <div class="input-group">
+                    <label for="especialidades">Escolha as especialidades:</label>
+                    <div class="especialidades-group">
+                        <?php
+                        // Buscar as especialidades do banco de dados
+                        $stmt = $conn->prepare("SELECT id, nome FROM especialidades");
+                        $stmt->execute();
+                        $especialidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        
+                        // Gerar checkboxes para cada especialidade
+                        foreach ($especialidades as $especialidade) {
+                            echo '<div class="especialidade-input">';
+                            echo '<input type="checkbox" name="especialidades[]" value="' . $especialidade['id'] . '" id="especialidade_' . $especialidade['id'] . '">';
+                            echo '<label for="especialidade_' . $especialidade['id'] . '">' . $especialidade['nome'] . '</label>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Gêneros -->
                 <div class="gender-inputs">
                     <div class="gender-title">
                         <h6>Gêneros</h6>
                     </div>
                 </div>
                 <div class="gender-group">
-                <div class="gender-input">
-                    <input type="radio" id="female" name="gender" value="Feminino"> 
-                    <label for="female">Feminino</label>
-                </div>
+                    <div class="gender-input">
+                        <input type="radio" id="female" name="gender" value="Feminino"> 
+                        <label for="female">Feminino</label>
+                    </div>
 
-                <div class="gender-input">
-                    <input type="radio" id="male" name="gender" value="Masculino"> 
-                    <label for="male">Masculino</label>
-                </div>
+                    <div class="gender-input">
+                        <input type="radio" id="male" name="gender" value="Masculino"> 
+                        <label for="male">Masculino</label>
+                    </div>
 
-                <div class="gender-input">
-                    <input type="radio" id="others" name="gender" value="Outros"> 
-                    <label for="others">Outros</label>
+                    <div class="gender-input">
+                        <input type="radio" id="others" name="gender" value="Outros"> 
+                        <label for="others">Outros</label>
+                    </div>
                 </div>
-            </div>
-
                 <div class="continue-button">
                     <button type="submit">Continuar</button>
                 </div>
